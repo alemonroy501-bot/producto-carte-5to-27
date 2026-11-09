@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva - Colegio Montano</title>
+    <style>
+        :root {
+            --azul-principal: #1269A8;
+            --amarillo-brillante: #F7D615;
+            --verde-grisaceo: #54887D;
+            --azul-claro: #88B5C7;
+            --verde-oliva: #A6B046;
+            --blanco-suave: #F2F5E9;
+            --texto-oscuro: #1A2B3C;
+            --blanco-puro: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #E2E8F0;
+            padding: 15px;
+            color: var(--texto-oscuro);
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Marco Principal tipo Pizarra Digital */
+        .pizarra-container {
+            width: 100%;
+            max-width: 1050px;
+            background-color: var(--blanco-suave);
+            border: 6px solid var(--amarillo-brillante);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Encabezado */
+        .pizarra-header {
+            background-color: var(--azul-principal);
+            color: var(--blanco-puro);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 4px solid var(--verde-grisaceo);
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-montano {
+            height: 55px;
+            width: auto;
+            background-color: var(--blanco-puro);
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .header-titles h1 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--amarillo-brillante);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-titles h2 {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--blanco-suave);
+        }
+
+        /* Botón Fullscreen */
+        .btn-fullscreen {
+            background-color: var(--amarillo-brillante);
+            color: var(--texto-oscuro);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+        }
+
+        .btn-fullscreen:hover {
+            transform: translateY(-2px);
+            background-color: #ffe12b;
+        }
+
+        /* Navegación por Pestañas */
+        .nav-tabs {
+            background-color: var(--verde-grisaceo);
+            display: flex;
+            overflow-x: auto;
+            border-bottom: 3px solid var(--azul-principal);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--blanco-puro);
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background-color 0.3s, color 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .tab-btn.active {
+            background-color: var(--blanco-suave);
+            color: var(--azul-principal);
+            border-bottom: 4px solid var(--amarillo-brillante);
+        }
+
+        /* Área de Contenido Principal */
+        .pizarra-body {
+            padding: 25px;
+            min-height: 500px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos de Teoría y Tarjetas */
+        .section-title {
+            color: var(--azul-principal);
+            border-bottom: 3px solid var(--verde-oliva);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card {
+            background-color: var(--blanco-puro);
+            border: 2px solid var(--azul-claro);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .card-header-badge {
+            display: inline-block;
+            background-color: var(--verde-oliva);
+            color: var(--blanco-puro);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .card-header-badge.basico { background-color: var(--verde-oliva); }
+        .card-header-badge.intermedio { background-color: var(--azul-principal); }
+        .card-header-badge.avanzado { background-color: #8E44AD; }
+
+        .concept-box {
+            background-color: rgba(136, 181, 199, 0.2);
+            border-left: 5px solid var(--azul-principal);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 15px 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        /* Botón Solución Interactivo */
+        .btn-solucion {
+            background-color: var(--azul-principal);
+            color: var(--blanco-puro);
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: background 0.2s;
+        }
+
+        .btn-solucion:hover {
+            background-color: #0d4e7e;
+        }
+
+        .solucion-box {
+            display: none;
+            margin-top: 12px;
+            padding: 12px;
+            background-color: #EBF3F6;
+            border: 1px dashed var(--azul-principal);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .solucion-box.visible {
+            display: block;
+        }
+
+        /* SVG Plano Coordenado Ejemplo */
+        .graph-container {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        /* Cuestionarios y Evaluaciones */
+        .question-item {
+            background: var(--blanco-puro);
+            border-left: 4px solid var(--amarillo-brillante);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Pie de página */
+        .pizarra-footer {
+            background-color: var(--azul-principal);
+            color: var(--blanco-puro);
+            text-align: center;
+            padding: 10px;
+            font-size: 0.8rem;
+            border-top: 3px solid var(--amarillo-brillante);
+        }
+
+        /* Responsividad */
+        @media (max-width: 600px) {
+            .header-titles h1 { font-size: 1.1rem; }
+            .header-titles h2 { font-size: 0.85rem; }
+            .pizarra-body { padding: 15px; }
+            .tab-btn { padding: 10px 14px; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MARCO DIGITAL DE AULA -->
+    <div class="pizarra-container" id="pizarra">
+        
+        <!-- ENCABEZADO CON LOGO E IDENTIDAD INSTITUCIONAL -->
+        <header class="pizarra-header">
+            <div class="header-brand">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyEop0yf6lZ7Jk9MILZxF1rBj4Oqs5esyhIQ&s" alt="Logo Colegio Montano" class="logo-montano" onerror="this.src='https://placehold.co/120x50/1269A8/FFFFFF?text=Colegio+Montano'">
+                <div class="header-titles">
+                    <h1>Producto Cartesiano y Plano Coordenado</h1>
+                    <h2>Matemáticas | 5to Grado de Primaria</h2>
+                </div>
+            </div>
+            <button class="btn-fullscreen" onclick="toggleFullscreen()">
+                <span>⛶</span> Pantalla Completa
+            </button>
+        </header>
+
+        <!-- NAVEGACIÓN PESTAÑAS HORIZONTALES -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="openTab(event, 'teoria')">📖 1. Teoría</button>
+            <button class="tab-btn" onclick="openTab(event, 'ejemplos')">✏️ 2. Ejemplos (15)</button>
+            <button class="tab-btn" onclick="openTab(event, 'ejercicios')">🎯 3. Ejercicios (15)</button>
+            <button class="tab-btn" onclick="openTab(event, 'reflexion')">💡 4. Reflexión Crítica</button>
+            <button class="tab-btn" onclick="openTab(event, 'evaluacion')">📝 5. Evaluación Formativa</button>
+        </nav>
+
+        <!-- ÁREA DE CONTENIDO -->
+        <main class="pizarra-body">
+            
+            <!-- SECCIÓN 1: TEORÍA -->
+            <section id="teoria" class="tab-content active">
+                <h2 class="section-title">Conceptos Fundamentales</h2>
+                
+                <div class="card">
+                    <h3>1. Par Ordenado</h3>
+                    <p>Un <strong>par ordenado</strong> es una pareja de elementos dados en un orden estricto. Se escribe entre paréntesis y separados por una coma: <strong>(x, y)</strong>.</p>
+                    <div class="concept-box">
+                        <ul>
+                            <li><strong>x (Primer componente):</strong> Representa el valor en el eje horizontal (abscisas).</li>
+                            <li><strong>y (Segundo componente):</strong> Representa el valor en el eje vertical (ordenadas).</li>
+                            <li><em>¡El orden importa!</em> El par (2, 5) no es igual al par (5, 2).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>2. Producto Cartesiano (A × B)</h3>
+                    <p>El <strong>producto cartesiano</strong> entre dos conjuntos <strong>A</strong> y <strong>B</strong> es el conjunto formado por <em>todos los pares ordenados</em> posibles donde el primer elemento pertenece a <strong>A</strong> y el segundo a <strong>B</strong>.</p>
+                    <div class="concept-box">
+                        <p><strong>Ejemplo:</strong> Si A = {1, 2} y B = {3, 4}</p>
+                        <p><strong>A × B =</strong> {(1, 3), (1, 4), (2, 3), (2, 4)}</p>
+                        <p><strong>Fórmula de cantidad:</strong> Cantidad en A × B = (Cantidad en A) × (Cantidad en B).</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>3. El Plano Coordenado / Cartesiano</h3>
+                    <p>Es una superficie plana formada por dos rectas numéricas perpendiculares que se cruzan en un punto llamado <strong>Origen (0,0)</strong>.</p>
+                    
+                    <div class="grid-2" style="margin-top: 15px;">
+                        <div class="concept-box">
+                            <h4>Elementos principales:</h4>
+                            <ul>
+                                <li><strong>Eje X (Horizontal):</strong> Eje de las abscisas. (Avanzar derecha).</li>
+                                <li><strong>Eje Y (Vertical):</strong> Eje de las ordenadas. (Subir).</li>
+                                <li><strong>Origen (0,0):</strong> Punto de cruce de los dos ejes.</li>
+                            </ul>
+                        </div>
+                        <div class="graph-container">
+                            <svg width="220" height="220" viewBox="0 0 220 220" style="background:#fff; border-radius:8px; border:1px solid var(--azul-claro);">
+                                <!-- Rejilla -->
+                                <defs>
+                                    <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E2E8F0" stroke-width="1"/>
+                                    </pattern>
+                                </defs>
+                                <rect width="100%" height="100%" fill="url(#grid)" />
+                                <!-- Ejes -->
+                                <line x1="30" y1="190" x2="200" y2="190" stroke="#1269A8" stroke-width="3" />
+                                <line x1="30" y1="190" x2="30" y2="20" stroke="#1269A8" stroke-width="3" />
+                                <!-- Flechas -->
+                                <polygon points="200,186 208,190 200,194" fill="#1269A8"/>
+                                <polygon points="26,20 30,12 34,20" fill="#1269A8"/>
+                                <!-- Etiquetas -->
+                                <text x="195" y="210" font-size="12" fill="#1269A8" font-weight="bold">X</text>
+                                <text x="10" y="25" font-size="12" fill="#1269A8" font-weight="bold">Y</text>
+                                <text x="15" y="205" font-size="11" fill="#54887D" font-weight="bold">O(0,0)</text>
+                                <!-- Punto P(4,3) -->
+                                <line x1="110" y1="190" x2="110" y2="100" stroke="#A6B046" stroke-dasharray="4" stroke-width="2"/>
+                                <line x1="30" y1="100" x2="110" y2="100" stroke="#A6B046" stroke-dasharray="4" stroke-width="2"/>
+                                <circle cx="110" cy="100" r="5" fill="#F7D615" stroke="#1269A8" stroke-width="2"/>
+                                <text x="115" y="95" font-size="11" font-weight="bold" fill="#1269A8">P(4, 3)</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: EJEMPLOS RESUELTOS (15) -->
+            <section id="ejemplos" class="tab-content">
+                <h2 class="section-title">Ejemplos Resueltos Paso a Paso</h2>
+
+                <!-- NIVEL BÁSICO -->
+                <h3 style="color:var(--verde-oliva); margin: 15px 0 10px 0;">🟢 Nivel Básico (5 Ejemplos)</h3>
+                
+                <div class="card">
+                    <span class="card-header-badge basico">Ejemplo 1</span>
+                    <p><strong>Identificar componentes:</strong> En el par ordenado (7, 4), ¿cuál es la abscisa y cuál es la ordenada?</p>
+                    <div class="solucion-box visible">
+                        <strong>Respuesta:</strong> La <strong>abscisa (Eje X)</strong> es <strong>7</strong> y la <strong>ordenada (Eje Y)</strong> es <strong>4</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejemplo 2</span>
+                    <p><strong>Producto Cartesiano simple:</strong> Dados A = {1, 2} y B = {5}, halla A × B.</p>
+                    <div class="solucion-box visible">
+                        <strong>Paso 1:</strong> Asociamos cada elemento de A con el elemento de B.<br>
+                        <strong>Resultado:</strong> A × B = {(1, 5), (2, 5)}.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejemplo 3</span>
+                    <p><strong>Conteo de pares ordenados:</strong> Si el conjunto M tiene 3 elementos y el conjunto N tiene 4 elementos, ¿cuántos pares ordenados tiene M × N?</p>
+                    <div class="solucion-box visible">
+                        <strong>Fórmula:</strong> Cantidad = 3 × 4 = 12.<br>
+                        <strong>Resultado:</strong> Tendrá <strong>12 pares ordenados</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejemplo 4</span>
+                    <p><strong>Lectura en el plano:</strong> Si te mueves 5 unidades a la derecha sobre el eje X y 2 unidades hacia arriba en el eje Y desde el origen, ¿qué par ordenado obtienes?</p>
+                    <div class="solucion-box visible">
+                        <strong>Resultado:</strong> El par ordenado es <strong>(5, 2)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejemplo 5</span>
+                    <p><strong>Verificación de pares:</strong> ¿Es el par ordenado (3, 8) igual al par (8, 3)?</p>
+                    <div class="solucion-box visible">
+                        <strong>Respuesta:</strong> No. Los pares ordenados respetan la posición. (3, 8) significa 3 en X y 8 en Y, mientras que (8, 3) es 8 en X y 3 en Y.
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <h3 style="color:var(--azul-principal); margin: 25px 0 10px 0;">🔵 Nivel Intermedio (5 Ejemplos)</h3>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejemplo 6</span>
+                    <p><strong>Producto Cartesiano de 2x2:</strong> Si C = {a, b} y D = {1, 2}, encuentra C × D.</p>
+                    <div class="solucion-box visible">
+                        <strong>Paso a paso:</strong> Combinamos cada letra con cada número.<br>
+                        C × D = {(a, 1), (a, 2), (b, 1), (b, 2)}.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejemplo 7</span>
+                    <p><strong>Diferencia de Productos Cartesianos:</strong> Con A = {1} y B = {3, 4}, demuestra que A × B no es igual a B × A.</p>
+                    <div class="solucion-box visible">
+                        A × B = {(1, 3), (1, 4)}.<br>
+                        B × A = {(3, 1), (4, 1)}.<br>
+                        <strong>Conclusión:</strong> Los pares son distintos, por lo tanto A × B es diferente de B × A.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejemplo 8</span>
+                    <p><strong>Puntos sobre los ejes:</strong> ¿En qué eje se encuentra ubicado el punto P(0, 6)?</p>
+                    <div class="solucion-box visible">
+                        <strong>Análisis:</strong> Como la coordenada X = 0, no avanzamos a la derecha. Como Y = 6, subimos 6 unidades.<br>
+                        <strong>Respuesta:</strong> El punto está ubicado sobre el <strong>Eje Y (ordenadas)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejemplo 9</span>
+                    <p><strong>Construcción geométrica básica:</strong> Al unir los puntos A(1,1), B(4,1), C(4,3) y D(1,3) en el plano cartesiano, ¿qué figura geométrica se forma?</p>
+                    <div class="solucion-box visible">
+                        <strong>Análisis:</strong> La base mide 4 - 1 = 3 unidades. La altura mide 3 - 1 = 2 unidades.<br>
+                        <strong>Respuesta:</strong> Se forma un <strong>Rectángulo</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejemplo 10</span>
+                    <p><strong>Hallar el elemento faltante:</strong> Si el producto cartesiano A × B incluye los pares (2, 9) y (3, 9), y sabemos que B tiene solo 1 elemento, ¿cuál es el conjunto B?</p>
+                    <div class="solucion-box visible">
+                        <strong>Respuesta:</strong> El segundo elemento de todos los pares es 9, por lo tanto B = {9}.
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <h3 style="color:#8E44AD; margin: 25px 0 10px 0;">🟣 Nivel Avanzado (5 Ejemplos)</h3>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejemplo 11</span>
+                    <p><strong>Ecuaciones con pares ordenados:</strong> Si los pares ordenados (x + 2, 8) y (7, y - 3) son iguales, halla los valores de x e y.</p>
+                    <div class="solucion-box visible">
+                        <strong>Paso 1 (Igualar abscisas):</strong> x + 2 = 7 → x = 7 - 2 → x = 5.<br>
+                        <strong>Paso 2 (Igualar ordenadas):</strong> y - 3 = 8 → y = 8 + 3 → y = 11.<br>
+                        <strong>Resultado:</strong> x = 5, y = 11.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejemplo 12</span>
+                    <p><strong>Área de una figura en el plano:</strong> Los vértices de un triángulo son A(2, 2), B(6, 2) y C(2, 7). ¿Cuál es el área del triángulo?</p>
+                    <div class="solucion-box visible">
+                        <strong>Base (horizontal):</strong> 6 - 2 = 4 unidades.<br>
+                        <strong>Altura (vertical):</strong> 7 - 2 = 5 unidades.<br>
+                        <strong>Área del triángulo:</strong> (Base × Altura) / 2 = (4 × 5) / 2 = 20 / 2 = 10 unidades cuadradas.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejemplo 13</span>
+                    <p><strong>Restricciones en Producto Cartesiano:</strong> Dados A = {1, 2, 3} y B = {2, 4}, halla el subconjunto de A × B formado solo por los pares (x, y) donde y = 2x.</p>
+                    <div class="solucion-box visible">
+                        <strong>Evaluamos cada x en A:</strong><br>
+                        - Si x = 1 → y = 2(1) = 2. Par: (1, 2) (está en B).<br>
+                        - Si x = 2 → y = 2(2) = 4. Par: (2, 4) (está en B).<br>
+                        - Si x = 3 → y = 2(3) = 6. (6 no pertenece a B).<br>
+                        <strong>Resultado:</strong> {(1, 2), (2, 4)}.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejemplo 14</span>
+                    <p><strong>Desplazamiento de puntos:</strong> El punto K(3, 4) se desplaza 4 unidades a la derecha y 3 unidades hacia abajo. ¿Cuáles son las nuevas coordenadas de K?</p>
+                    <div class="solucion-box visible">
+                        <strong>Derecha en X (+4):</strong> 3 + 4 = 7.<br>
+                        <strong>Abajo en Y (-3):</strong> 4 - 3 = 1.<br>
+                        <strong>Nuevas coordenadas:</strong> K'(7, 1).
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejemplo 15</span>
+                    <p><strong>Elementos comunes:</strong> Si A = {1, 2}, B = {2, 3} y C = {3, 4}, halla los pares comunes que están tanto en (A × C) como en (B × C).</p>
+                    <div class="solucion-box visible">
+                        A × C = {(1, 3), (1, 4), (2, 3), (2, 4)}.<br>
+                        B × C = {(2, 3), (2, 4), (3, 3), (3, 4)}.<br>
+                        <strong>Elementos comunes:</strong> {(2, 3), (2, 4)}.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: EJERCICIOS PRÁCTICOS CON BOTÓN REVELADOR (15) -->
+            <section id="ejercicios" class="tab-content">
+                <h2 class="section-title">Ejercicios Prácticos para Resolver</h2>
+
+                <!-- NIVEL BÁSICO -->
+                <h3 style="color:var(--verde-oliva); margin: 15px 0 10px 0;">🟢 Nivel Básico</h3>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 1</span>
+                    <p>Escribe las coordenadas del punto que se encuentra en 4 unidades del eje X y 9 unidades del eje Y.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> El par ordenado es <strong>(4, 9)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 2</span>
+                    <p>Dados los conjuntos X = {3, 6} y Y = {1}, halla el producto cartesiano X × Y.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> X × Y = {(3, 1), (6, 1)}.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 3</span>
+                    <p>Si la cantidad de elementos en A es 5 y en B es 3, ¿cuántos pares ordenados obtendrás en A × B?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> 5 × 3 = 15 pares ordenados.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 4</span>
+                    <p>¿Cuáles son las coordenadas del origen en el plano cartesiano?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Las coordenadas del origen son <strong>(0, 0)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 5</span>
+                    <p>Indica la coordenada que falta en el par (?, 7) si sabemos que está a una distancia de 2 unidades a la derecha del eje Y.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> El valor en X es 2, por lo que el par es <strong>(2, 7)</strong>.
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <h3 style="color:var(--azul-principal); margin: 25px 0 10px 0;">🔵 Nivel Intermedio</h3>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 6</span>
+                    <p>Dados P = {2, 4} y Q = {6, 8}, escribe el conjunto P × Q.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> P × Q = {(2, 6), (2, 8), (4, 6), (4, 8)}.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 7</span>
+                    <p>Un punto se ubica en (5, 0). ¿Sobre cuál de los dos ejes está ubicado este punto?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Dado que la coordenada en Y es 0, el punto se encuentra sobre el <strong>Eje X (abscisas)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 8</span>
+                    <p>Si los vértices de un cuadrado en el plano son A(1,1), B(5,1), C(5,5) y D(1,5), ¿cuánto mide el perímetro del cuadrado?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Lado = 5 - 1 = 4 unidades. Perímetro = 4 × 4 = 16 unidades.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 9</span>
+                    <p>Si A × B = {(m, 1), (m, 2), (n, 1), (n, 2)}, determina los elementos del conjunto A y del conjunto B.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> A = {m, n} (primeros elementos) y B = {1, 2} (segundos elementos).
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 10</span>
+                    <p>Dadas las coordenadas A(2, 3), si multiplicas por 2 ambas coordenadas, ¿cuál es la nueva ubicación A'?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> A' = (2 × 2, 3 × 2) = (4, 6).
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <h3 style="color:#8E44AD; margin: 25px 0 10px 0;">🟣 Nivel Avanzado</h3>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 11</span>
+                    <p>Si (2a - 1, 9) = (7, 3b), calcula el valor de a + b.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Paso 1:</strong> 2a - 1 = 7 → 2a = 8 → a = 4.<br>
+                        <strong>Paso 2:</strong> 3b = 9 → b = 3.<br>
+                        <strong>Paso 3:</strong> a + b = 4 + 3 = 7.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 12</span>
+                    <p>Un barco sale del punto (2, 2), navega 6 unidades al este (derecha) y 5 unidades al norte (arriba). ¿En qué punto se encuentra ahora?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Coordenada X = 2 + 6 = 8. Coordenada Y = 2 + 5 = 7. El punto final es <strong>(8, 7)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 13</span>
+                    <p>Calcula el área de un rectángulo cuyos vértices son P(2, 1), Q(7, 1), R(7, 6) y S(2, 6).</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Base:</strong> 7 - 2 = 5 unidades.<br>
+                        <strong>Altura:</strong> 6 - 1 = 5 unidades.<br>
+                        <strong>Área:</strong> 5 × 5 = 25 unidades cuadradas.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 14</span>
+                    <p>Dado A = {1, 2, 3} y B = {4, 5}, encuentra A × B.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> A × B = {(1,4), (1,5), (2,4), (2,5), (3,4), (3,5)}.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 15</span>
+                    <p>Un robot está en el punto (3, 8). Se mueve 2 unidades a la izquierda, luego 4 abajo y finalmente 5 a la derecha. ¿Cuál es su coordenada final?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Eje X:</strong> 3 - 2 + 5 = 6.<br>
+                        <strong>Eje Y:</strong> 8 - 4 = 4.<br>
+                        <strong>Coordenada final:</strong> <strong>(6, 4)</strong>.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: REFLEXIÓN CRÍTICA -->
+            <section id="reflexion" class="tab-content">
+                <h2 class="section-title">Preguntas de Reflexión Crítica</h2>
+                
+                <div class="question-item">
+                    <h3>🔍 1. El orden en la vida cotidiana</h3>
+                    <p>¿Por qué crees que en un par ordenado como (x, y) es fundamental mantener el orden de los números? Piensa en un mapa o en las filas y asientos de un cine. ¿Qué sucedería si intercambias las coordenadas?</p>
+                </div>
+
+                <div class="question-item">
+                    <h3>🗺️ 2. Aplicaciones en la Tecnología</h3>
+                    <p>¿De qué manera crees que aplicaciones como Google Maps, videojuegos (como Minecraft o Roblox) o los GPS de las ambulancias utilizan el plano cartesiano para funcionar?</p>
+                </div>
+
+                <div class="question-item">
+                    <h3>📐 3. Relación entre Multiplicación y Producto Cartesiano</h3>
+                    <p>Si tenemos un conjunto de 4 camisas y 3 pantalones, ¿cómo se relaciona la regla de contar combinaciones con el número total de opciones de ropa que puedes usar?</p>
+                </div>
+
+                <div class="question-item">
+                    <h3>🧠 4. Coordenadas Negativas (Desafío para el futuro)</h3>
+                    <p>En este nivel trabajamos con el primer cuadrante (números positivos). ¿Qué imaginas que ocurre si nos movemos a la izquierda del cero en el eje X o hacia abajo del cero en el eje Y?</p>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 5: EVALUACIÓN FORMATIVA -->
+            <section id="evaluacion" class="tab-content">
+                <h2 class="section-title">Evaluación Formativa Integradora</h2>
+                <p style="margin-bottom: 20px;">Resuelve los siguientes ejercicios en tu cuaderno y luego despliega la solución para autoevaluarte.</p>
+
+                <div class="card">
+                    <h3>Pregunta 1: Concepto de Producto Cartesiano</h3>
+                    <p>Dado los conjuntos K = {Rojo, Azul} y L = {Pelota, Carro}, escribe formalmente el conjunto K × L.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>Pasos:</strong> Combinar cada color con cada juguete.</p>
+                        <p><strong>Resultado:</strong> K × L = {(Rojo, Pelota), (Rojo, Carro), (Azul, Pelota), (Azul, Carro)}.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pregunta 2: Ubicación y Trayectoria</h3>
+                    <p>Un estudiante ubica los puntos A(1, 2) y B(7, 2) en una cuadrícula. ¿Cuál es la distancia en unidades horizontales entre el punto A y el punto B?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>Análisis:</strong> Ambos puntos tienen la misma coordenada vertical (Y = 2).</p>
+                        <p><strong>Cálculo:</strong> Restamos las coordenadas horizontales: 7 - 1 = 6 unidades.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pregunta 3: Ecuación con Par Ordenado</h3>
+                    <p>Halla el valor de x por y si se cumple que (x + 4, 12) = (10, 2y).</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>1. Hallar x:</strong> x + 4 = 10 → x = 6.</p>
+                        <p><strong>2. Hallar y:</strong> 2y = 12 → y = 6.</p>
+                        <p><strong>3. Producto:</strong> x × y = 6 × 6 = 36.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pregunta 4: Construcción y Geometría</h3>
+                    <p>Si colocas los puntos P(2,2), Q(6,2) y R(2,6) en el plano cartesiano y los unes con líneas rectas, ¿qué tipo de triángulo se forma y cuál es su área?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>Tipo de Triángulo:</strong> Es un <strong>Triángulo Rectángulo Isósceles</strong> (base y altura miden 4 unidades).</p>
+                        <p><strong>Cálculo del área:</strong> Área = (4 × 4) / 2 = 16 / 2 = 8 unidades cuadradas.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: EJERCICIOS PRÁCTICOS CON BOTÓN REVELADOR (15) -->
+            <section id="ejercicios" class="tab-content">
+                <h2 class="section-title">Ejercicios Prácticos para Resolver</h2>
+
+                <!-- NIVEL BÁSICO -->
+                <h3 style="color:var(--verde-oliva); margin: 15px 0 10px 0;">🟢 Nivel Básico</h3>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 1</span>
+                    <p>Escribe las coordenadas del punto que se encuentra en 4 unidades del eje X y 9 unidades del eje Y.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> El par ordenado es <strong>(4, 9)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 2</span>
+                    <p>Dados los conjuntos $X = \{3, 6\}$ y $Y = \{1\}$, halla el producto cartesiano $X \times Y$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> $X \times Y = \{(3, 1), (6, 1)\}$.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 3</span>
+                    <p>Si $n(A) = 5$ y $n(B) = 3$, ¿cuántos pares ordenados obtendrás en $A \times B$?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> $5 \times 3 = 15$ pares ordenados.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 4</span>
+                    <p>¿Cuáles son las coordenadas del origen en el plano cartesiano?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Las coordenadas del origen son <strong>(0, 0)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge basico">Ejercicio 5</span>
+                    <p>Indica la coordenada que falta en el par $(?, 7)$ si sabemos que está a una distancia de 2 unidades a la derecha del eje Y.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> El valor en X es 2, por lo que el par es <strong>(2, 7)</strong>.
+                    </div>
+                </div>
+
+                <!-- NIVEL INTERMEDIO -->
+                <h3 style="color:var(--azul-principal); margin: 25px 0 10px 0;">🔵 Nivel Intermedio</h3>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 6</span>
+                    <p>Dados $P = \{2, 4\}$ y $Q = \{6, 8\}$, escribe el conjunto $P \times Q$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> $P \times Q = \{(2, 6), (2, 8), (4, 6), (4, 8)\}$.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 7</span>
+                    <p>Un punto se ubica en $(5, 0)$. ¿Sobre cuál de los dos ejes está ubicado este punto?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Dado que la coordenada en $Y$ es $0$, el punto se encuentra sobre el <strong>Eje X (abscisas)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 8</span>
+                    <p>Si los vértices de un cuadrado en el plano son $A(1,1)$, $B(5,1)$, $C(5,5)$ y $D(1,5)$, ¿cuánto mide el perímetro del cuadrado?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Lado = $5 - 1 = 4$ unidades. Perímetro = $4 \times 4 = 16$ unidades.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 9</span>
+                    <p>Si $A \times B = \{(m, 1), (m, 2), (n, 1), (n, 2)\}$, determina los elementos del conjunto $A$ y del conjunto $B$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> $A = \{m, n\}$ (primeros elementos) y $B = \{1, 2\}$ (segundos elementos).
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge intermedio">Ejercicio 10</span>
+                    <p>Dadas las coordenadas $A(2, 3)$, si multiplicas por 2 ambas coordenadas, ¿cuál es la nueva ubicación $A'$?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> $A' = (2 \times 2, 3 \times 2) = (4, 6)$.
+                    </div>
+                </div>
+
+                <!-- NIVEL AVANZADO -->
+                <h3 style="color:#8E44AD; margin: 25px 0 10px 0;">🟣 Nivel Avanzado</h3>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 11</span>
+                    <p>Si $(2a - 1, 9) = (7, 3b)$, calcula el valor de $a + b$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Paso 1:</strong> $2a - 1 = 7 \Rightarrow 2a = 8 \Rightarrow a = 4$.<br>
+                        <strong>Paso 2:</strong> $3b = 9 \Rightarrow b = 3$.<br>
+                        <strong>Paso 3:</strong> $a + b = 4 + 3 = 7$.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 12</span>
+                    <p>Un barco sale del punto $(2, 2)$, navega 6 unidades al este (derecha) y 5 unidades al norte (arriba). ¿En qué punto se encuentra ahora?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Solución:</strong> Coordenada $X = 2 + 6 = 8$. Coordenada $Y = 2 + 5 = 7$. El punto final es <strong>(8, 7)</strong>.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 13</span>
+                    <p>Calcula el área de un rectángulo cuyos vértices son $P(2, 1)$, $Q(7, 1)$, $R(7, 6)$ y $S(2, 6)$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Base:</strong> $7 - 2 = 5$ unidades.<br>
+                        <strong>Altura:</strong> $6 - 1 = 5$ unidades.<br>
+                        <strong>Área:</strong> $5 \times 5 = 25 \text{ unidades}^2$ (es un cuadrado de área 25).
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 14</span>
+                    <p>Dado $A = \{x \in \mathbb{N} \mid 1 \le x \le 3\}$ y $B = \{4, 5\}$, encuentra $A \times B$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Paso 1:</strong> Identificar conjunto $A = \{1, 2, 3\}$.<br>
+                        <strong>Paso 2:</strong> $A \times B = \{(1,4), (1,5), (2,4), (2,5), (3,4), (3,5)\}$.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-header-badge avanzado">Ejercicio 15</span>
+                    <p>Un robot está en el punto $(3, 8)$. Se mueve 2 unidades a la izquierda, luego 4 abajo y finalmente 5 a la derecha. ¿Cuál es su coordenada final?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución</button>
+                    <div class="solucion-box">
+                        <strong>Eje X:</strong> $3 - 2 + 5 = 6$.<br>
+                        <strong>Eje Y:</strong> $8 - 4 = 4$.<br>
+                        <strong>Coordenada final:</strong> <strong>(6, 4)</strong>.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 4: REFLEXIÓN CRÍTICA -->
+            <section id="reflexion" class="tab-content">
+                <h2 class="section-title">Preguntas de Reflexión Crítica</h2>
+                
+                <div class="question-item">
+                    <h3>🔍 1. El orden en la vida cotidiana</h3>
+                    <p>¿Por qué crees que en un par ordenado como $(x, y)$ es fundamental mantener el orden de los números? Piensa en un mapa o en las filas y asientos de un cine. ¿Qué sucedería si intercambias las coordenadas?</p>
+                </div>
+
+                <div class="question-item">
+                    <h3>🗺️ 2. Aplicaciones en la Tecnología</h3>
+                    <p>¿De qué manera crees que aplicaciones como Google Maps, videojuegos (como Minecraft o Roblox) o los GPS de las ambulancias utilizan el plano cartesiano para funcionar?</p>
+                </div>
+
+                <div class="question-item">
+                    <h3>📐 3. Relación entre Multiplicación y Producto Cartesiano</h3>
+                    <p>Si tenemos un conjunto de 4 camisas y 3 pantalones, ¿cómo se relaciona la regla del producto cartesiano $n(A \times B) = n(A) \times n(B)$ con el número total de combinaciones de ropa que puedes usar?</p>
+                </div>
+
+                <div class="question-item">
+                    <h3>🧠 4. Coordenadas Negativas (Desafío para el futuro)</h3>
+                    <p>En este nivel trabajamos con el primer cuadrante (números positivos). ¿Qué imaginas que ocurre si nos movemos a la izquierda del cero en el eje X o hacia abajo del cero en el eje Y?</p>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 5: EVALUACIÓN FORMATIVA -->
+            <section id="evaluacion" class="tab-content">
+                <h2 class="section-title">Evaluación Formativa Integradora</h2>
+                <p style="margin-bottom: 20px;">Resuelve los siguientes ejercicios en tu cuaderno y luego despliega la solución para autoevaluarte.</p>
+
+                <div class="card">
+                    <h3>Pregunta 1: Concepto de Producto Cartesiano</h3>
+                    <p>Dado los conjuntos $K = \{\text{Rojo}, \text{Azul}\}$ y $L = \{\text{Pelota}, \text{Carro}\}$, escribe formalmente el conjunto $K \times L$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>Pasos:</strong> Combinar cada color con cada juguete.</p>
+                        <p><strong>Resultado:</strong> $K \times L = \{(\text{Rojo}, \text{Pelota}), (\text{Rojo}, \text{Carro}), (\text{Azul}, \text{Pelota}), (\text{Azul}, \text{Carro})\}$.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pregunta 2: Ubicación y Trayectoria</h3>
+                    <p>Un estudiante ubica los puntos $A(1, 2)$ y $B(7, 2)$ en una cuadrícula. ¿Cuál es la distancia en unidades horizontales entre el punto $A$ y el punto $B$?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>Análisis:</strong> Ambos puntos tienen la misma coordenada vertical ($Y = 2$).</p>
+                        <p><strong>Cálculo:</strong> Restamos las coordenadas horizontales: $7 - 1 = 6$ unidades.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pregunta 3: Ecuación con Par Ordenado</h3>
+                    <p>Halla el valor de $x \cdot y$ si se cumple que $(x + 4, 12) = (10, 2y)$.</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>1. Hallar x:</strong> $x + 4 = 10 \Rightarrow x = 6$.</p>
+                        <p><strong>2. Hallar y:</strong> $2y = 12 \Rightarrow y = 6$.</p>
+                        <p><strong>3. Producto:</strong> $x \cdot y = 6 \cdot 6 = 36$.</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Pregunta 4: Construcción y Geometría</h3>
+                    <p>Si colocas los puntos $P(2,2)$, $Q(6,2)$ y $R(2,6)$ en el plano cartesiano y los unes con líneas rectas, ¿qué tipo de triángulo se forma y cuál es su área?</p>
+                    <button class="btn-solucion" onclick="toggleSolucion(this)">Mostrar Solución Paso a Paso</button>
+                    <div class="solucion-box">
+                        <p><strong>Tipo de Triángulo:</strong> Es un <strong>Triángulo Rectángulo Isósceles</strong> (base y altura miden 4 unidades).</p>
+                        <p><strong>Cálculo del área:</strong> $\text{Área} = \frac{4 \times 4}{2} = \frac{16}{2} = 8 \text{ unidades}^2$.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- PIE DE PÁGINA INSTITUCIONAL -->
+        <footer class="pizarra-footer">
+            <p>Colegio Montano &copy; 2026 | Recursos Educativos Digitales Interactivos</p>
+        </footer>
+    </div>
+
+    <!-- SCRIPT INTERACTIVO -->
+    <script>
+        // Función para cambiar entre Pestañas
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Función para Mostrar/Ocultar Solución
+        function toggleSolucion(btn) {
+            var solucionBox = btn.nextElementSibling;
+            if (solucionBox.classList.contains("visible")) {
+                solucionBox.classList.remove("visible");
+                btn.textContent = "Mostrar Solución";
+            } else {
+                solucionBox.classList.add("visible");
+                btn.textContent = "Ocultar Solución";
+            }
+        }
+
+        // Función de Pantalla Completa (Fullscreen API)
+        function toggleFullscreen() {
+            var elem = document.getElementById("pizarra");
+
+            if (!document.fullscreenElement && !document.mozFullScreenElement &&
+                !document.webkitFullscreenElement && !document.msFullscreenElement) {
+                if (elem.requestFullscreen) {
+                    elem.requestFullscreen();
+                } else if (elem.msRequestFullscreen) {
+                    elem.msRequestFullscreen();
+                } else if (elem.mozRequestFullScreen) {
+                    elem.mozRequestFullScreen();
+                } else if (elem.webkitRequestFullscreen) {
+                    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
